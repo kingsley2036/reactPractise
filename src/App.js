@@ -1,13 +1,13 @@
-import React, { Component, Fragment } from "react"
+import React, { Component, Fragment } from "react";
 // import logo from "./logo.svg"
-import "./App.css"
+import "./App.css";
 
 class App extends Component {
   constructor(props) {
-    super(props)
+    super(props);
     this.state = {
-      inputValue: "xxx",
-      list: [
+      inputValue: "",
+      lists: [
         {
           name: "大保健",
           value: 1,
@@ -17,10 +17,10 @@ class App extends Component {
           value: 2,
         },
       ],
-    }
+    };
   }
   render() {
-    console.log(this,'this render')
+    console.log(this, "this render");
     return (
       <Fragment>
         <div>
@@ -28,23 +28,30 @@ class App extends Component {
             value={this.state.inputValue}
             onChange={this.setInput.bind(this)}
           />
-          <button>添加服務</button>
+          <button onClick={this.addService.bind(this)}>添加服務</button>
         </div>
         <ul>
-          {this.state.list.map((item) => {
-            return item
+          {this.state.lists.map((item, index) => {
+            return <li key={item+index}>{item.name}</li>;
           })}
-          <li>大保健</li>
-          <li>粉红的回忆</li>
         </ul>
       </Fragment>
-    )
+    );
   }
-  setInput(e){
-    console.log(this)
+  setInput(e) {
+    console.log(this);
     this.setState({
-      'inputValue':e.target.value
-    })
+      inputValue: e.target.value,
+    });
+  }
+  addService() {
+    this.setState({
+      lists: [
+        ...this.state.lists,
+        { value: this.state.lists.length, name: this.state.inputValue },
+      ],
+      inputValue:''
+    });
   }
 }
 // function App() {
@@ -68,4 +75,4 @@ class App extends Component {
 //   );
 // }
 
-export default App
+export default App;
