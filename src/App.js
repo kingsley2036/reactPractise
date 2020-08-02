@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from "react";
 // import logo from "./logo.svg"
 import "./App.css";
+import Licomponent  from './licomponent'
 
 class App extends Component {
   constructor(props) {
@@ -31,9 +32,21 @@ class App extends Component {
           <button onClick={this.addService.bind(this)}>添加服務</button>
         </div>
         <ul>
-          {this.state.lists.map((item, index) => {
-            return <li key={item+index}>{item.name}</li>;
+         
+          {/* {this.state.lists.map((item, index) => {
+            return <li onClick={this.deleteItem.bind(this,index)} key={item+index}>{item.name}</li>;
+          })} */}
+           {this.state.lists.map((item, index) => {
+            return <Licomponent  
+             key={item+index} 
+             content={item.name}
+             index={index}
+             delete={this.deleteItem.bind(this)}
+             >
+              
+             </Licomponent>;
           })}
+
         </ul>
       </Fragment>
     );
@@ -53,26 +66,14 @@ class App extends Component {
       inputValue:''
     });
   }
+  deleteItem(index){
+    let array=this.state.lists
+    array.splice(index,1)
+    this.setState({
+      lists:array
+    })
+  }
 }
-// function App() {
-//   return (
-//     <div className="App">
-//       <header className="App-header">
-//         <img src={logo} className="App-logo" alt="logo" />
-//         <p>
-//           Edit <code>src/App.js</code> and save to reload.
-//         </p>
-//         <a
-//           className="App-link"
-//           href="https://reactjs.org"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           Learn React
-//         </a>
-//       </header>
-//     </div>
-//   );
-// }
+
 
 export default App;
