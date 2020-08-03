@@ -28,22 +28,18 @@ class App extends Component {
           <input
             value={this.state.inputValue}
             onChange={this.setInput.bind(this)}
+            ref={(input)=>{this.input=input}}
           />
           <button onClick={this.addService.bind(this)}>添加服務</button>
         </div>
-        <ul>
-         
-          {/* {this.state.lists.map((item, index) => {
-            return <li onClick={this.deleteItem.bind(this,index)} key={item+index}>{item.name}</li>;
-          })} */}
+        <ul ref={(ul)=>{this.myul=ul}}>
            {this.state.lists.map((item, index) => {
             return <Licomponent  
              key={item+index} 
              content={item.name}
              index={index}
              delete={this.deleteItem.bind(this)}
-             >
-              
+             > 
              </Licomponent>;
           })}
 
@@ -58,12 +54,17 @@ class App extends Component {
     });
   }
   addService() {
+    // this.input
+    console.log(this.input.value,'input')
     this.setState({
       lists: [
         ...this.state.lists,
         { value: this.state.lists.length, name: this.state.inputValue },
       ],
       inputValue:''
+    },()=>{
+        // this.myul
+      console.log(this.myul,'myul')
     });
   }
   deleteItem(index){
